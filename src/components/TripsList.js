@@ -5,9 +5,14 @@ import TripItem from "./TripItem";
 
 function TripsList() {
 	const [query, setQuery] = useState("");
-	const trips = tripsData
+	let trips = tripsData
 		.filter(trip => trip.name.toLowerCase().includes(query.toLowerCase()))
 		.map(trip => <TripItem trip={trip} />);
+
+	const handleDifficulty = e => {
+		trips = trips.filter(trip => trip.difficulty === e);
+	};
+
 	return (
 		<section class='page-section portfolio mt-5' id='portfolio'>
 			<div class='container'>
@@ -17,7 +22,12 @@ function TripsList() {
 				<br />
 				<SearchBar setQuery={setQuery} />
 				<center>
-					<button className='btn btn-primary btn-xl'>Easy</button>
+					<button
+						onClick={e => handleDifficulty(e.target.value)}
+						value='easy'
+						className='btn btn-primary btn-xl'>
+						Easy
+					</button>
 					<button className='btn btn-primary btn-xl'>Moderate</button>
 					<button className='btn btn-primary btn-xl'>Hard</button>
 				</center>
